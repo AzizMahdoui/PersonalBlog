@@ -1,0 +1,27 @@
+.link {
+    border-bottom: 2px solid transparent;
+    transition: border-bottom-color 0.3s ease;
+  }
+  
+  .link:hover {
+    border-bottom-color: #550029; /* Equivalent to bluegray-400 in Tailwind */
+  }
+
+  .gradient-text {
+    background-color: #f3ec78;
+    background-image: linear-gradient(45deg, #550029, #af4261);
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+.gradient-background{
+
+    background-color: #f3ec78;
+    background-image: linear-gradient(45deg, #550029, #af4261);
+    background-size: 100%;
+    -webkit-background-clip:initial;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}

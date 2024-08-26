@@ -22,7 +22,7 @@ const BlogDisplay = ({size}:BlogDisplayProps) => {
     <Image src={Attendance} alt="Blog Post 1" className="w-[250px] rounded-full h-48 "/>
     <div className="p-6">
       <Link href={"home"}><h1 className="text-2xl underline font-bold mb-2">Blog Post Title 1</h1></Link>
-      <p className="text-white mb-4 text-start">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p className="text-white mb-4 text-start font-thin">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       <Link href="#" className="text-blue-500 font-semibold">Read more</Link>
     </div>
   </div>

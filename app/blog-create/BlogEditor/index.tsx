@@ -29,7 +29,7 @@ const BlogEditor = () => {
     
 
   return (
-    <div className="h-full gradient-background bg-neutral-50">
+    <div className="h-full bg-neutral-50">
     <h2 className="text-4xl text-start text-black px-8 font-semibold py-4">
       Create Blog New Post
     </h2>

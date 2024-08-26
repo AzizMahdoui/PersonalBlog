@@ -6,26 +6,62 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
 import { generateSlug } from "@/app/libs";
+import { useEffect } from "react";
 import { Blog } from "@/app/libs/Schemas";
+import { useRouter } from 'next/navigation';
 const BlogEditor = () => {
-    const [blog,setBlog] = useState<Blog>({
-        title:"",
-        slug:"",
-        description:"",
-        content:""
-    })
-    const [content,setContent] = useState("")
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setBlog(prevBlog => ({ ...prevBlog, [name]: value }));
+  const router = useRouter();
+  const [blog, setBlog] = useState<Blog>({
+      title: "",
+      slug: "",
+      description: "",
+      content: ""
+  });
+  const [content, setContent] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-    }
- 
-      async function handleSubmit(e:any) {
-        e.preventDefault();
-      console.log(content)
-        console.log(blog);
+  useEffect(() => {
+      // Check if user is authenticated
+      const checkAuth = async () => {
+          const res = await fetch('/api/auth/check');
+          if (!res.ok) {
+              router.push('/login'); // Redirect to login if not authenticated
+          }
+      };
+      checkAuth();
+  }, [router]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setBlog(prevBlog => ({ ...prevBlog, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsLoading(true);
+      setError("");
+
+      try {
+          const response = await fetch('/api/blogs', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ ...blog, content }),
+          });
+
+          if (!response.ok) {
+              throw new Error('Failed to create blog post');
+          }
+
+          router.push('/blogs'); // Redirect to blogs list after successful creation
+      } catch (err) {
+          setError("Failed to create blog post. Please try again.");
+      } finally {
+          setIsLoading(false);
       }
+  };
     
 
   return (
